@@ -10,7 +10,7 @@ namespace Repository.Repositories
     {
         Task<Doctor> FindById(int doctorId);
         Task<List<Doctor>> GetAll();
-        Task<Doctor> Update(Doctor doctor);
+        Task<Doctor> Update(int doctorId, Doctor doctor);
         Task Delete(int doctorId);
         Task<Doctor> Add(Doctor doctor);
         Task SaveChanges();

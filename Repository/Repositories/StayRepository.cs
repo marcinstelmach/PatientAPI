@@ -33,7 +33,7 @@ namespace Repository.Repositories
             {
                 throw new Exception($"Stay id:{stayId} not found");
             }
-
+            stay.Patient = result.Patient;
             _db.Stays.Update(stay);
             await SaveChanges();
             return stay;
@@ -54,7 +54,10 @@ namespace Repository.Repositories
         public async Task<Stay> Add(Stay stay)
         {
             var patient = await _db.Patients.FirstOrDefaultAsync(s => s.PatientId == stay.PatientId);
-            stay.Patient = patient ?? throw new Exception($"Patient with id:{stay.PatientId} not found");
+            if (patient==null)
+            {
+                throw new Exception($"Patient with id:{stay.PatientId} not found");
+            }
 
             await _db.Stays.AddAsync(stay);
             await SaveChanges();
