@@ -6,10 +6,9 @@ namespace Repository.Dto
 {
     public class TestDto
     {
-        public int StayId { get; set; }
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
-        public string Room { get; set; }
-        public string Department { get; set; }
+        public int TestId { get; set; }
+        public string Name { get; set; }
+        public string Result { get; set; }
+        public string Date { get; set; }
     }
 }

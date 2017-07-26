@@ -10,6 +10,6 @@ namespace Repository.Dto
         public int StayId { get; set; }
         public int DoctorId { get; set; }
         public int TestId { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }
