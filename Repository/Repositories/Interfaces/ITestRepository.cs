@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
 
-namespace Repository.Repositories
+namespace Repository.Repositories.Interfaces
 {
     public interface ITestRepository
     {

@@ -4,8 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Repositories.DAL;
+using Repository.Repositories.Interfaces;
 
-namespace Repository.Repositories
+namespace Repository.Repositories.Implementations
 {
     public class StayRepository : IStayRepository
     {
