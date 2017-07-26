@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Repository.Repositories.DAL;
+using Repository.DAL;
 using Repository.Repositories.Interfaces;
 
 namespace Repository.Repositories.Implementations

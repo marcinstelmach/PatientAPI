@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Data.Models;
 
-namespace Repository.Repositories.DAL
+namespace Repository.DAL
 {
     public class ApplicationDbContext : DbContext
     {
