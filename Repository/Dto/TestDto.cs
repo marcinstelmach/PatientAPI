@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Repository.Repositories.Dto
+namespace Repository.Dto
 {
     public class TestDto
     {
