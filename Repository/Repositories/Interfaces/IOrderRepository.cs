@@ -14,5 +14,7 @@ namespace Repository.Repositories.Interfaces
         Task Delete(int orderId);
         Task<Order> Add(Order order);
         Task SaveChanges();
+        Task<Order> GetPatientOrder(int patientId, int orderId);
+        Task<List<Order>> GetAllPatientOrders(int patientId);
     }
 }

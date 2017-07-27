@@ -14,5 +14,7 @@ namespace Repository.Repositories.Interfaces
         Task Delete(int doctorId);
         Task<Doctor> Add(Doctor doctor);
         Task SaveChanges();
+        Task<Doctor> GetPatientDoctor(int patientId, int doctorId);
+        Task<List<Doctor>> GetPatientDoctors(int patientId);
     }
 }

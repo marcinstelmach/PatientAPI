@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
@@ -69,6 +70,23 @@ namespace Repository.Repositories.Implementations
         public async Task SaveChanges()
         {
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<Stay> GetPatientStay(int patientId, int stayId)
+        {
+            //var result = _db.Stays
+            //                .Join(_db.Patients,
+            //                stays => stays.PatientId,
+            //                patients => patients.PatientId,
+            //                (stays, patients) => new {Stay=stays, Patient=patients})
+            //            .Where()
+
+            return await _db.Stays.FirstOrDefaultAsync(s => s.PatientId==patientId && s.StayId==stayId);
+        }
+
+        public async Task<List<Stay>> GetAllPatientStays(int patientId)
+        {
+            return await _db.Stays.Where(s => s.PatientId == patientId).ToListAsync();
         }
     }
 }

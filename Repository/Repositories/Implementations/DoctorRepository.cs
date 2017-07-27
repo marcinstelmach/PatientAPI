@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
@@ -31,7 +32,7 @@ namespace Repository.Repositories.Implementations
         public async Task<Doctor> Update(int doctorId, Doctor doctor)
         {
             var restult = await FindById(doctorId);
-            if (restult==null)
+            if (restult == null)
             {
                 throw new Exception($"Doctor with id: {doctorId} not found");
             }
@@ -44,7 +45,7 @@ namespace Repository.Repositories.Implementations
         public async Task Delete(int doctorId)
         {
             var result = await FindById(doctorId);
-            if (result==null)
+            if (result == null)
             {
                 throw new Exception($"Doctor with id: {doctorId} not found");
             }
@@ -63,6 +64,27 @@ namespace Repository.Repositories.Implementations
         public async Task SaveChanges()
         {
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<Doctor> GetPatientDoctor(int patientId, int doctorId)
+        {
+            var result = await _db.Doctors
+                .Join(_db.Orders,
+                    doctor => doctor.DoctorId,
+                    order => order.DoctorId,
+                    (doctor, order) => new { Doctor = doctor, Order = order })
+                    .Where(s => s.Doctor.DoctorId == doctorId)
+                .Join(_db.Stays,
+                    order => order.Order.StayId,
+                    stay => stay.StayId,
+                    (order, stay) => new { Order = order, Stay = stay })
+                .FirstOrDefaultAsync(s => s.Stay.PatientId == patientId);
+            return result.Order.Doctor;
+        }
+
+        public Task<List<Doctor>> GetPatientDoctors(int patientId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

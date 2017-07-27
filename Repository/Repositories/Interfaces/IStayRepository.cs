@@ -14,5 +14,7 @@ namespace Repository.Repositories.Interfaces
         Task Delete(int stayId);
         Task<Stay> Add(Stay stay);
         Task SaveChanges();
+        Task<Stay> GetPatientStay(int patientId, int stayId);
+        Task<List<Stay>> GetAllPatientStays(int patientId);
     }
 }

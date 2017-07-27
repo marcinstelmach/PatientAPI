@@ -14,5 +14,7 @@ namespace Repository.Repositories.Interfaces
         Task Delete(int testId);
         Task<Test> Add(Test test);
         Task SaveChanges();
+        Task<Test> GetPatientTest(int patientId, int testId);
+        Task<List<Test>> GetAllPatientTests(int patientId);
     }
 }
