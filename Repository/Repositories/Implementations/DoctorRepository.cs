@@ -75,16 +75,29 @@ namespace Repository.Repositories.Implementations
                     (doctor, order) => new { Doctor = doctor, Order = order })
                     .Where(s => s.Doctor.DoctorId == doctorId)
                 .Join(_db.Stays,
-                    order => order.Order.StayId,
+                    orderDoctor => orderDoctor.Order.StayId,
                     stay => stay.StayId,
-                    (order, stay) => new { Order = order, Stay = stay })
+                    (orderDoctor, stay) => new { OrderDoctor = orderDoctor, Stay = stay })
                 .FirstOrDefaultAsync(s => s.Stay.PatientId == patientId);
-            return result.Order.Doctor;
+            return result.OrderDoctor.Doctor;
         }
 
-        public Task<List<Doctor>> GetPatientDoctors(int patientId)
+        public async Task<List<Doctor>> GetPatientDoctors(int patientId)
         {
-            throw new NotImplementedException();
+            var result = await _db.Doctors
+                .Join(_db.Orders,
+                    doctor => doctor.DoctorId,
+                    order => order.DoctorId,
+                    (doctor, order) => new { Doctor = doctor, Order = order })
+                .Join(_db.Stays,
+                    orderDoctor => orderDoctor.Order.StayId,
+                    stay => stay.StayId,
+                    (orderDoctor, stay) => new { OrderDoctor = orderDoctor, Stay = stay })
+                .Where(s => s.Stay.PatientId == patientId)
+                .Select(s => s.OrderDoctor.Doctor)
+                .ToListAsync();
+
+            return result;
         }
     }
 }

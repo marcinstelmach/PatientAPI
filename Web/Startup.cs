@@ -32,18 +32,26 @@ namespace Web
             // Add framework services.
 
             services.AddDbContext<ApplicationDbContext>(
-                o => o.UseSqlServer(Configuration.GetConnectionString("ConnectionDefault")));
+                o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext db)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+
+            });
+
+            //DbInitializer.Initialize(db);
         }
     }
 }

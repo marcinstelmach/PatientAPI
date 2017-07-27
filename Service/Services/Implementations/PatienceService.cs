@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
@@ -24,13 +25,8 @@ namespace Service.Services.Implementations
         public async Task<List<PatientDto>> Get()
         {
             var patients = await _patientRepository.GetAll();
-            List<PatientDto> patientDto = new List<PatientDto>();
-            foreach (var item in patients)
-            {
-                patientDto.Add(_mapper.ToDto(item));
-            }
 
-            return patientDto;
+            return patients.Select(item => _mapper.ToDto(item)).ToList();
         }
 
         public async Task<PatientDto> Get(int patientId)
@@ -53,44 +49,5 @@ namespace Service.Services.Implementations
             await _patientRepository.Delete(patientId);
         }
 
-        public async Task<StayDto> GetStay(int stayId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<StayDto>> GetAllStays()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<OrderDto> GetOrder(int orderId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<OrderDto>> GetAllOrders()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<DoctorDto> GetDoctor(int doctorId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<DoctorDto>> GetAllDoctors()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<TestDto> GetTest(int testId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<TestDto>> GetAllTests()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

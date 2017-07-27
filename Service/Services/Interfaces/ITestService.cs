@@ -13,5 +13,7 @@ namespace Service.Services.Interfaces
         Task<TestDto> Post(TestDto testDto);
         Task<TestDto> Put(int testId, TestDto testDto);
         Task Delete(int testId);
+        Task<TestDto> GetPatientTest(int patientId, int testId);
+        Task<List<TestDto>> GetAllPatientTests(int patientId);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
@@ -63,6 +65,40 @@ namespace Repository.Repositories.Implementations
         public async Task SaveChanges()
         {
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<Test> GetPatientTest(int patientId, int testId)
+        {
+            var result = await _db.Tests
+                .Join(_db.Orders,
+                    test => test.TestId,
+                    order => order.TestId,
+                    (test, order) => new {Test = test, Order = order})
+                .Where(s => s.Test.TestId == testId)
+                .Join(_db.Stays,
+                    orderTest => orderTest.Order.StayId,
+                    stay => stay.StayId,
+                    (orderTest, stay) => new {OrderTest = orderTest, Stay = stay})
+                .FirstOrDefaultAsync(s => s.Stay.PatientId == patientId);
+
+            return result.OrderTest.Test;
+        }
+
+        public async Task<List<Test>> GetAllPatientTests(int patientId)
+        {
+            var result = await _db.Tests
+                .Join(_db.Orders,
+                    test => test.TestId,
+                    order => order.TestId,
+                    (test, order) => new {Test = test, Order = order})
+                .Join(_db.Stays,
+                    orderTest => orderTest.Order.StayId,
+                    stay => stay.StayId,
+                    (orderTest, stay) => new {OrderTest = orderTest, Stay = stay})
+                .Where(s => s.Stay.PatientId == patientId)
+                .Select(s =>s.OrderTest.Test)
+                .ToListAsync();
+            return result;
         }
     }
 }
