@@ -43,6 +43,18 @@ namespace Web
             services.AddTransient<IPatientService, PatienceService>();
             services.AddTransient<IPatientRepository, PatientRepository>();
             services.AddTransient<IMapper<Patient, PatientDto>, PatientMapper>();
+            services.AddTransient<IMapper<Doctor, DoctorDto>, DoctorMapper>();
+            services.AddTransient<IMapper<Order, OrderDto>, OrderMapper>();
+            services.AddTransient<IMapper<Stay, StayDto>, StayMapper>();
+            services.AddTransient<IMapper<Test, TestDto>, TestMapper>();
+            services.AddTransient<IDoctorService, DoctorService>();
+            services.AddTransient<IDoctorRepository, DoctorRepository>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IStayService, StayService>();
+            services.AddTransient<IStayRepository, StayRepository>();
+            services.AddTransient<ITestService, TestService>();
+            services.AddTransient<ITestRepository, TestRepository>();
 
             services.AddMvc();
         }
