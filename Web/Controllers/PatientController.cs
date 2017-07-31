@@ -62,7 +62,7 @@ namespace Web.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{patientId}")]
         public async Task<IActionResult> Put(int patientId, [FromBody] PatientDto patientDto)
         {
             try

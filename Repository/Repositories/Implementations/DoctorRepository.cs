@@ -88,11 +88,11 @@ namespace Repository.Repositories.Implementations
                 .Join(_db.Orders,
                     doctor => doctor.DoctorId,
                     order => order.DoctorId,
-                    (doctor, order) => new { Doctor = doctor, Order = order })
+                    (doctor, order) => new {Doctor = doctor, Order = order})
                 .Join(_db.Stays,
                     orderDoctor => orderDoctor.Order.StayId,
                     stay => stay.StayId,
-                    (orderDoctor, stay) => new { OrderDoctor = orderDoctor, Stay = stay })
+                    (orderDoctor, stay) => new {OrderDoctor = orderDoctor, Stay = stay})
                 .Where(s => s.Stay.PatientId == patientId)
                 .Select(s => s.OrderDoctor.Doctor)
                 .ToListAsync();

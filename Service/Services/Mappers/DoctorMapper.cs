@@ -13,7 +13,7 @@ namespace Service.Services.Mappers
             Doctor doctor = new Doctor();
             doctor.DoctorId = doctorDto.DoctorId;
             doctor.FirstName = doctorDto.FirstName;
-            doctor.LastName = doctor.LastName;
+            doctor.LastName = doctorDto.LastName;
             doctor.Specjalization = doctorDto.Specjalization;
 
             return doctor;

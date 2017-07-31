@@ -47,9 +47,8 @@ namespace Web.Controllers
         public async Task<IActionResult> Post([FromBody] DoctorDto doctorDto)
         {
             try
-            {
-                await _doctorService.Post(doctorDto);
-                return Ok(doctorDto);
+            {        
+                return Ok(await _doctorService.Post(doctorDto));
             }
             catch (Exception e)
             {
@@ -62,8 +61,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _doctorService.Put(doctorId, doctorDto);
-                return Ok(doctorDto);
+                return Ok(await _doctorService.Put(doctorId, doctorDto));
             }
             catch (Exception e)
             {
@@ -85,7 +83,7 @@ namespace Web.Controllers
             }
         }
 
-        [HttpGet("{patientId}/{doctorId}")]
+        [HttpGet("GetPatientDoctor/{patientId}/{doctorId}")]
         public async Task<IActionResult> GetPDoctor(int patientId, int doctorId)
         {
             var result = await _doctorService.GetPatientDoctor(patientId, doctorId);
@@ -97,7 +95,7 @@ namespace Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{patientId}")]
+        [HttpGet("GetPatientDoctors/{patientId}")]
         public async Task<IActionResult> GetPDoctors(int patientId)
         {
             var result = await _doctorService.GetAllPatientDoctors(patientId);

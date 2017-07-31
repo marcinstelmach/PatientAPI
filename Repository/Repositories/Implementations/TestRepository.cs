@@ -38,9 +38,12 @@ namespace Repository.Repositories.Implementations
                 throw new Exception($"Test with id:{testId} not found");
             }
 
-            _db.Tests.Update(test);
+            result.Date = test.Date;
+            result.Name = test.Name;
+            result.Result = test.Result;
+            _db.Tests.Update(result);
             await SaveChanges();
-            return test;
+            return result;
         }
 
         public async Task Delete(int testId)

@@ -11,23 +11,36 @@ namespace Service.Services.Mappers
         public Test FromDto(TestDto testDto)
         {
             Test test = new Test();
-            test.TestId = testDto.TestId;
-            test.Name = testDto.Name;
-            test.Result = testDto.Result;
-            test.Date = DateTime.Parse(testDto.Date);
-
-            return test;
+            try
+            {
+                test.TestId = testDto.TestId;
+                test.Name = testDto.Name;
+                test.Result = testDto.Result;
+                test.Date = DateTime.Parse(testDto.Date);
+                return test;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public TestDto ToDto(Test test)
         {
             TestDto testDto = new TestDto();
-            testDto.TestId = test.TestId;
-            testDto.Name = test.Name;
-            testDto.Result = testDto.Result;
-            testDto.Date = test.Date.ToString("d");
+            try
+            {
+                testDto.TestId = test.TestId;
+                testDto.Name = test.Name;
+                testDto.Result = test.Result;
+                testDto.Date = test.Date.ToString("d");
+                return testDto;
+            }
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException(e.Message);
+            }
 
-            return testDto;
         }
     }
 }

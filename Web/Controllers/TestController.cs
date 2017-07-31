@@ -35,13 +35,22 @@ namespace Web.Controllers
         [HttpGet("{testId}")]
         public async Task<IActionResult> Get(int testId)
         {
-            var result = await _testService.Get(testId);
-            if (result == null)
+            try
             {
-                return NotFound();
-            }
+                var result = await _testService.Get(testId);
+                if (result == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (NullReferenceException e)
+            {
+                return NotFound(e);
+            }
+            
+            
         }
 
         [HttpPost]
@@ -49,8 +58,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _testService.Post(testDto);
-                return Ok(testDto);
+                return Ok(await _testService.Post(testDto));
             }
             catch (Exception e)
             {
@@ -59,13 +67,13 @@ namespace Web.Controllers
             
         }
 
-        [HttpPut]
+        [HttpPut("{testId}")]
         public async Task<IActionResult> Put(int testId, [FromBody] TestDto testDto)
         {
             try
             {
                 await _testService.Put(testId, testDto);
-                return Ok(testDto);
+                return Ok(await _testService.Put(testId, testDto));
             }
             catch (Exception e)
             {
@@ -87,7 +95,7 @@ namespace Web.Controllers
             }
         }
 
-        [HttpGet("{patientId}/{testId}")]
+        [HttpGet("GetPatientTest/{patientId}/{testId}")]
         public async Task<IActionResult> GetPTest(int patientId, int testId)
         {
             var result = await _testService.GetPatientTest(patientId, testId);
@@ -99,7 +107,7 @@ namespace Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{patientId}")]
+        [HttpGet("GetPatientTests/{patientId}")]
         public async Task<IActionResult> GetPTests(int patientId)
         {
             var result = await _testService.GetAllPatientTests(patientId);
