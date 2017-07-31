@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\DoctorController.cs" />
+    <Compile Remove="Controllers\OrderController.cs" />
+    <Compile Remove="Controllers\StayController.cs" />
+    <Compile Remove="Controllers\TestController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

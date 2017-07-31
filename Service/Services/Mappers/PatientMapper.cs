@@ -15,7 +15,7 @@ namespace Service.Services.Mappers
             patient.FirstName = patientDto.FirstName;
             patient.LastName = patientDto.LastName;
             patient.City = patientDto.City;
-            patient.Street = patient.Street;
+            patient.Street = patientDto.Street;
 
             return patient;
         }

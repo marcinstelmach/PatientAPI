@@ -36,9 +36,13 @@ namespace Repository.Repositories.Implementations
                 throw new Exception($"Patient wth id: {patientId} not found");
             }
 
-            _db.Patients.Update(patient);
+            result.City = patient.City;
+            result.FirstName = patient.City;
+            result.LastName = patient.LastName;
+            result.Street = patient.Street;
+            _db.Patients.Update(result);
             await SaveChanges();
-            return patient;
+            return result;
         }
 
         public async Task Delete(int patientId)

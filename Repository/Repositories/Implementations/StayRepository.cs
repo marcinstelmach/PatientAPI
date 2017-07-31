@@ -36,10 +36,15 @@ namespace Repository.Repositories.Implementations
             {
                 throw new Exception($"Stay id:{stayId} not found");
             }
-            stay.Patient = result.Patient;
-            _db.Stays.Update(stay);
+
+            result.Department = stay.Department;
+            result.From = stay.From;
+            result.To = stay.To;
+            result.Orders = stay.Orders;
+            result.Room = stay.Room;
+            _db.Stays.Update(result);
             await SaveChanges();
-            return stay;
+            return result;
         }
 
         public async Task Delete(int stayId)

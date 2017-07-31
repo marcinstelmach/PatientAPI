@@ -54,8 +54,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _patientService.Post(patientDto);
-                return Ok(patientDto);
+                return Ok(await _patientService.Post(patientDto));
             }
             catch (Exception e)
             {
@@ -68,8 +67,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _patientService.Put(patientId, patientDto);
-                return Ok(patientDto);
+                return Ok(await _patientService.Put(patientId, patientDto));
             }
             catch (Exception e)
             {
