@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Data.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,6 +65,8 @@ namespace Web
             services.AddTransient<ITestRepository, TestRepository>();
             services.AddTransient<IMapper<Test, TestDto>, TestMapper>();
 
+
+
             services.AddMvc();
         }
 
@@ -79,6 +82,7 @@ namespace Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
 
             //DbInitializer.Initialize(db);
         }

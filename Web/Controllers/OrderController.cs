@@ -48,8 +48,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _orderService.Post(orderDto);
-                return Ok(orderDto);
+                return Ok(await _orderService.Post(orderDto));
             }
             catch (Exception e)
             {
@@ -58,13 +57,12 @@ namespace Web.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("{orderId}")]
         public async Task<IActionResult> Put(int orderId, [FromBody] OrderDto orderDto)
         {
             try
             {
-                await _orderService.Put(orderId, orderDto);
-                return Ok(orderDto);
+                return Ok(await _orderService.Put(orderId, orderDto));
             }
             catch (Exception e)
             {
@@ -86,7 +84,7 @@ namespace Web.Controllers
             }
         }
 
-        [HttpGet("{patientId}")]
+        [HttpGet("GetPatientOrders/{patientId}")]
         public async Task<IActionResult> GetPOrders(int patientId)
         {
             var result = await _orderService.GetAllPatientOrders(patientId);
@@ -98,7 +96,7 @@ namespace Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{patientId}/{orderId}")]
+        [HttpGet("GetPatientOrder/{patientId}/{orderId}")]
         public async Task<IActionResult> GetPOrder(int patientId, int orderId)
         {
             var result = await _orderService.GetPatientOrder(patientId, orderId);
