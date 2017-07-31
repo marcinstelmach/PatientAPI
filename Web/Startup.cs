@@ -40,21 +40,29 @@ namespace Web
 
             services.AddDbContext<ApplicationDbContext>(
                 o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddTransient<IPatientService, PatienceService>();
             services.AddTransient<IPatientRepository, PatientRepository>();
             services.AddTransient<IMapper<Patient, PatientDto>, PatientMapper>();
-            services.AddTransient<IMapper<Doctor, DoctorDto>, DoctorMapper>();
-            services.AddTransient<IMapper<Order, OrderDto>, OrderMapper>();
-            services.AddTransient<IMapper<Stay, StayDto>, StayMapper>();
-            services.AddTransient<IMapper<Test, TestDto>, TestMapper>();
-            services.AddTransient<IDoctorService, DoctorService>();
-            services.AddTransient<IDoctorRepository, DoctorRepository>();
-            services.AddTransient<IOrderService, OrderService>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
+
+
             services.AddTransient<IStayService, StayService>();
             services.AddTransient<IStayRepository, StayRepository>();
+            services.AddTransient<IMapper<Stay, StayDto>, StayMapper>();
+
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IMapper<Order, OrderDto>, OrderMapper>();
+
+
+            services.AddTransient<IDoctorService, DoctorService>();
+            services.AddTransient<IDoctorRepository, DoctorRepository>();
+            services.AddTransient<IMapper<Doctor, DoctorDto>, DoctorMapper>();
+
+
             services.AddTransient<ITestService, TestService>();
             services.AddTransient<ITestRepository, TestRepository>();
+            services.AddTransient<IMapper<Test, TestDto>, TestMapper>();
 
             services.AddMvc();
         }
@@ -65,7 +73,12 @@ namespace Web
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             //DbInitializer.Initialize(db);
         }

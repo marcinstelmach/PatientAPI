@@ -20,7 +20,6 @@ namespace Web.Controllers
             _stayService = stayService;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -33,7 +32,7 @@ namespace Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{stayId")]
+        [HttpGet("{stayId}")]
         public async Task<IActionResult> Get(int stayId)
         {
             var result = await _stayService.Get(stayId);
@@ -50,8 +49,7 @@ namespace Web.Controllers
         {
             try
             {
-                await _stayService.Post(stayDto);
-                return Ok(stayDto);
+                return Ok(await _stayService.Post(stayDto));
             }
             catch (Exception e)
             {
@@ -59,13 +57,12 @@ namespace Web.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{stayId}")]
         public async Task<IActionResult> Put(int stayId, [FromBody] StayDto stayDto)
         {
             try
             {
-                await _stayService.Put(stayId, stayDto);
-                return Ok(stayDto);
+                return Ok(await _stayService.Put(stayId, stayDto));
             }
             catch (Exception e)
             {
@@ -87,7 +84,7 @@ namespace Web.Controllers
             }
         }
 
-        [HttpGet("{stayId}")]
+        [HttpGet("GetStays/{patientId}")]
         public async Task<IActionResult> GetPStays(int patientId)
         {
             var result = await _stayService.GetAllPatientStays(patientId);
@@ -99,7 +96,8 @@ namespace Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{patientId}/{stayId}")]
+       
+        [HttpGet("GetStay/{patientId}/{stayId}")]
         public async Task<IActionResult> GetPStay(int patientId, int stayId)
         {
             var result = await _stayService.GetPatientStay(patientId, stayId);
@@ -110,6 +108,5 @@ namespace Web.Controllers
 
             return Ok(result);
         }
-
     }
 }
